@@ -12,6 +12,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+xdg.portal = {
+  enable = true;
+  extraPortals = [
+    pkgs.kdePackages.xdg-desktop-portal-kde
+  ];
+  config.common.default = "kde";
+};
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -28,6 +36,8 @@
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 3000 5173 ]; # Node + Vite ports
 
+  #Enable docker
+  virtualisation.docker.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -133,6 +143,11 @@
       proprietaryCodecs = true;
       enableWidevine = true;
     })
+  google-chrome
+  clang-tools
+  docker-compose
+  obs-studio
+  mpv
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
