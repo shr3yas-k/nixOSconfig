@@ -5,21 +5,17 @@
 { config, pkgs, ... }:
 
 {
-
-
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-xdg.portal = {
-  enable = true;
-  extraPortals = [
-    pkgs.kdePackages.xdg-desktop-portal-kde
-  ];
-  config.common.default = "kde";
-};
-
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.kdePackages.xdg-desktop-portal-kde
+    ];
+    config.common.default = "kde";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -49,19 +45,19 @@ xdg.portal = {
   # (Optional) Enable PipeWire for Bluetooth audio
   hardware.pulseaudio.enable = false;
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_IN";
+i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IN";
-    LC_IDENTIFICATION = "en_IN";
-    LC_MEASUREMENT = "en_IN";
-    LC_MONETARY = "en_IN";
-    LC_NAME = "en_IN";
-    LC_NUMERIC = "en_IN";
-    LC_PAPER = "en_IN";
-    LC_TELEPHONE = "en_IN";
-    LC_TIME = "en_IN";
-  };
+i18n.extraLocaleSettings = {
+  LC_ADDRESS = "en_US.UTF-8";
+  LC_IDENTIFICATION = "en_US.UTF-8";
+  LC_MEASUREMENT = "en_US.UTF-8";
+  LC_MONETARY = "en_US.UTF-8";
+  LC_NAME = "en_US.UTF-8";
+  LC_NUMERIC = "en_US.UTF-8";
+  LC_PAPER = "en_US.UTF-8";
+  LC_TELEPHONE = "en_US.UTF-8";
+  LC_TIME = "en_US.UTF-8";
+};
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -107,7 +103,7 @@ xdg.portal = {
   users.users.shreyas = {
     isNormalUser = true;
     description = "Shreyas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video"];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -117,11 +113,16 @@ xdg.portal = {
   # Install firefox.
   programs.firefox.enable = true;
 
+  #Install Starship
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
+  #For vscode
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
@@ -148,6 +149,10 @@ xdg.portal = {
   docker-compose
   obs-studio
   mpv
+  alacritty
+  starship
+  cheese
+  vscode-fhs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
